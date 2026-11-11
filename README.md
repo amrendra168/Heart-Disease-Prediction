@@ -1,12 +1,19 @@
 # ❤️ Heart Disease Prediction
 
-A Machine Learning classification project that predicts whether a record belongs to the heart disease class using Logistic Regression and Scikit-learn.
+A Machine Learning classification project that predicts whether a record belongs to the heart disease class using multiple Machine Learning algorithms and Scikit-learn.
 
 ## 📌 Project Overview
 
-This project demonstrates an end-to-end Machine Learning workflow, including data exploration, preprocessing, model training, evaluation, and prediction.
+This project demonstrates an end-to-end Machine Learning workflow, including data exploration, preprocessing, model training, evaluation, hyperparameter tuning, model comparison, and prediction.
 
 The application provides a simple command-line interface to train the model and make predictions.
+
+Three classification algorithms are evaluated:
+- Logistic Regression
+- Decision Tree
+- K-Nearest Neighbors (KNN)
+
+KNN is selected as the final model based on its highest cross-validation accuracy.
 
 ## 🛠️ Technologies Used
 
@@ -27,13 +34,21 @@ Heart-Disease-Prediction/
 │   └── heart.csv
 │
 ├── models/
+│   └── heart_disease_model.pkl
+│
 ├── screenshots/
 │   ├── menu.png
-│   └── prediction.png
+│   ├── prediction.png
+│   ├── confusion_matrix.png
+│   ├── model_comparison.png
+│   └── train_test_comparison.png
 │
 ├── main.py
 ├── train_model.py
 ├── predict.py
+├── visualize.py
+├── tune_model.py
+├── model_results.csv
 ├── requirements.txt
 ├── README.md
 └── .gitignore
@@ -47,35 +62,62 @@ Heart-Disease-Prediction/
 - Target column: `target`
 
 Target classes:
+
 - `0` – No Heart Disease Class
 - `1` – Heart Disease Class
 
 ## 🤖 Machine Learning Workflow
 
 1. Load the dataset using Pandas.
-2. Explore and clean the dataset.
+2. Explore and analyze the dataset.
 3. Remove duplicate records.
-4. Separate features and target.
+4. Separate input features and target.
 5. Split data into training and testing sets.
-6. Apply StandardScaler.
-7. Train Logistic Regression.
-8. Evaluate model performance.
-9. Save the trained model using Joblib.
-10. Generate predictions for new records.
+6. Apply StandardScaler where required.
+7. Train Logistic Regression, Decision Tree, and KNN models.
+8. Evaluate models using accuracy and classification metrics.
+9. Perform 5-Fold Cross-Validation.
+10. Tune model hyperparameters using GridSearchCV.
+11. Compare model performance.
+12. Select the best model based on cross-validation accuracy.
+13. Save the selected model using Joblib.
+14. Generate predictions for new records.
 
 ## 📈 Model Performance
 
-**Algorithm:** Logistic Regression
+Three Machine Learning algorithms were evaluated using 5-Fold Cross-Validation and a separate testing dataset.
 
-| Metric | Score |
-|---|---:|
-| Training Accuracy | 85.89% |
-| Testing Accuracy | 80.33% |
-| Precision (Class 1) | 80.00% |
-| Recall (Class 1) | 84.85% |
-| F1-score (Class 1) | 82.00% |
+| Model | CV Accuracy | Testing Accuracy |
+|---|---:|---:|
+| KNN | **82.99%** | 80.33% |
+| Logistic Regression | 82.58% | 80.33% |
+| Decision Tree | 79.69% | 80.33% |
 
-These results are from one train-test split and are intended for educational evaluation.
+### Best Model: K-Nearest Neighbors (KNN)
+
+KNN was selected because it achieved the highest cross-validation accuracy of **82.99%**.
+
+### Best Hyperparameters
+
+```python
+{
+    'classifier__n_neighbors': 9,
+    'classifier__p': 2,
+    'classifier__weights': 'uniform'
+}
+```
+
+### Hyperparameter Tuning
+
+GridSearchCV was used to find the best hyperparameters for each algorithm.
+
+The selected model was saved as:
+
+`models/heart_disease_model.pkl`
+
+The complete comparison results are also saved in `model_results.csv`.
+
+*Note: All three models achieved the same testing accuracy on the selected test split. The KNN model's advantage in this comparison is its slightly higher cross-validation accuracy.*
 
 ## 🖥️ Application Screenshots
 
@@ -87,30 +129,25 @@ These results are from one train-test split and are intended for educational eva
 
 ![Prediction Output](screenshots/prediction.png)
 
-## Model Evaluation
+## 📊 Model Evaluation and Visualizations
 
-The project evaluates machine learning models using both train-test split and 5-Fold Cross-Validation.
+The project evaluates model performance using train-test split, 5-Fold Cross-Validation, and confusion matrix analysis.
 
-### Cross-Validation
-
-Logistic Regression is evaluated using 5-Fold Cross-Validation.
-
-- Mean Cross-Validation Accuracy: 82.13%
-- Standard Deviation: 6.06%
-
-### Model Performance Visualizations
-
-The project generates the following visualizations:
+The following visualizations are generated:
 
 1. **Confusion Matrix:** Displays correct and incorrect predictions.
-2. **Model Accuracy Comparison:** Compares Logistic Regression, Decision Tree, and KNN using 5-Fold Cross-Validation.
+2. **Model Accuracy Comparison:** Compares Logistic Regression, Decision Tree, and KNN using cross-validation.
 3. **Training vs Testing Accuracy:** Compares training and testing performance to help identify overfitting.
 
-### Screenshots
+### Confusion Matrix
 
 ![Confusion Matrix](screenshots/confusion_matrix.png)
 
+### Model Accuracy Comparison
+
 ![Model Comparison](screenshots/model_comparison.png)
+
+### Training vs Testing Accuracy
 
 ![Training vs Testing Accuracy](screenshots/train_test_comparison.png)
 
@@ -151,19 +188,35 @@ python main.py
 
 ### 6. Train the model
 
-Select option `1` from the menu. This generates the trained model inside the `models` folder.
+Select option `1` from the menu to train the model.
 
 ### 7. Make a prediction
 
 Select option `2` and enter the required feature values.
 
+### 8. Tune and compare models
+
+```bash
+python tune_model.py
+```
+
+This performs hyperparameter tuning, compares the models, saves the best model, and generates `model_results.csv`.
+
+### 9. Generate visualizations
+
+```bash
+python visualize.py
+```
+
+This generates the model evaluation graphs inside the `screenshots` folder.
+
 ## 🚀 Future Improvements
 
-- Compare multiple Machine Learning algorithms.
-- Implement cross-validation.
-- Add model performance visualizations.
 - Develop a simple web interface using Streamlit.
 - Improve prediction explainability.
+- Explore additional Machine Learning algorithms.
+- Perform more rigorous model validation.
+- Improve the overall user experience.
 
 ## ⚠️ Disclaimer
 
