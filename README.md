@@ -87,6 +87,33 @@ These results are from one train-test split and are intended for educational eva
 
 ![Prediction Output](screenshots/prediction.png)
 
+## Model Evaluation
+
+The project evaluates machine learning models using both train-test split and 5-Fold Cross-Validation.
+
+### Cross-Validation
+
+Logistic Regression is evaluated using 5-Fold Cross-Validation.
+
+- Mean Cross-Validation Accuracy: 82.13%
+- Standard Deviation: 6.06%
+
+### Model Performance Visualizations
+
+The project generates the following visualizations:
+
+1. **Confusion Matrix:** Displays correct and incorrect predictions.
+2. **Model Accuracy Comparison:** Compares Logistic Regression, Decision Tree, and KNN using 5-Fold Cross-Validation.
+3. **Training vs Testing Accuracy:** Compares training and testing performance to help identify overfitting.
+
+### Screenshots
+
+![Confusion Matrix](screenshots/confusion_matrix.png)
+
+![Model Comparison](screenshots/model_comparison.png)
+
+![Training vs Testing Accuracy](screenshots/train_test_comparison.png)
+
 ## ⚙️ Installation and Execution
 
 ### 1. Clone the repository
